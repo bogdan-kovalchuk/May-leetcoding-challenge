@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <unordered_map>
-#include <bitset>
 
 using std::string;
 using std::vector;
