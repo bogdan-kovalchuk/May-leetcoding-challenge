@@ -25,41 +25,34 @@ struct TreeNode {
 
 class Solution {
 public:
-    bool isCousins(TreeNode *root, int x, int y) {
-        vector<TreeNode *> queue = {root};
-        while (!queue.empty()) {
-            vector<TreeNode *> level_queue;
-            vector<TreeNode *> nodes;
-            for (auto elem : queue) {
-                if (elem->left) {
-                    if (elem->left->val == x || elem->left->val == y) nodes.emplace_back(elem);
-                    level_queue.emplace_back(elem->left);
-                }
-                if (elem->right) {
-                    if (elem->right->val == x || elem->right->val == y) nodes.emplace_back(elem);
-                    level_queue.emplace_back(elem->right);
-                }
-            }
-            if (nodes.size() > 1) {
-                if (nodes[0] != nodes[1]) return true;
-                else return false;
-            }
-            queue = level_queue;
-        }
-        return false;
+    int kthSmallest(TreeNode *root, int k) {
+
     }
 };
 
-int main() {
-    Solution solution = Solution();
-    int x = 5;
-    int y = 4;
-    auto *root = new TreeNode(1);
-    root->left = new TreeNode(2);
-    root->right = new TreeNode(3);
-    root->left->left = new TreeNode(4);
-    root->right->right = new TreeNode(5);
+TreeNode *insertLevelOrder(vector<int> nodes, TreeNode *root, int i, int n) {
+    // Base case for recursion
+    if (i < n && nodes[i] != 0) {
+        auto *temp = new TreeNode(nodes[i]);
+        root = temp;
 
-    std::cout << solution.isCousins(root, x, y) << std::endl;
+        // insert left child
+        root->left = insertLevelOrder(nodes, root->left, 2 * i + 1, n);
+
+        // insert right child
+        root->right = insertLevelOrder(nodes, root->right, 2 * i + 2, n);
+    }
+    return root;
+}
+
+int main() {
+    int k = 3;
+    vector<int> nodes = {5, 3, 6, 2, 4, 0, 0, 1};
+    Solution solution = Solution();
+
+    TreeNode *root = insertLevelOrder(nodes, root, 0, nodes.size());
+
+    std::cout << solution.kthSmallest(root, k) << std::endl;
+
     return 0;
 }
