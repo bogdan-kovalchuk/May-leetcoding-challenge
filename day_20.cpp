@@ -26,7 +26,23 @@ struct TreeNode {
 class Solution {
 public:
     int kthSmallest(TreeNode *root, int k) {
+        int min = 0;
+        traversalInOrder(root, k, min);
+        return min;
 
+    }
+
+    void traversalInOrder(TreeNode *root, int &k, int &min) {
+        if (root == nullptr) return;
+
+        if (k > 0) {
+            traversalInOrder(root->left, k, min);
+
+            if (k == 1) min = root->val;
+            k--;
+
+            traversalInOrder(root->right, k, min);
+        }
     }
 };
 
@@ -46,7 +62,7 @@ TreeNode *insertLevelOrder(vector<int> nodes, TreeNode *root, int i, int n) {
 }
 
 int main() {
-    int k = 3;
+    int k = 4;
     vector<int> nodes = {5, 3, 6, 2, 4, 0, 0, 1};
     Solution solution = Solution();
 
