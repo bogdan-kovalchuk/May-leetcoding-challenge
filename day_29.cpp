@@ -37,11 +37,9 @@ public:
 };
 
 int main() {
-    int numCourses = 4;
+    int numCourses = 2;
     vector<vector<int>> prerequisites = {{1, 0},
-                                         {2, 1},
-                                         {2, 3},
-                                         {3, 2}};
+                                         {0, 1}};
 
     Solution solution = Solution();
     std::cout << solution.canFinish(numCourses, prerequisites) << std::endl;
